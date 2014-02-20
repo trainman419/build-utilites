@@ -694,10 +694,10 @@ if  [ $# -lt 2 ]; then
 	exit 0
 fi
 
-if [ x"$CROSS_COMPILE" = "x" ]; then
-	echo "define CROSS_COMPILE variable"
-	exit 1
-fi
+#if [ x"$CROSS_COMPILE" = "x" ]; then
+#	echo "define CROSS_COMPILE variable"
+#	exit 1
+#fi
 
 which ${CROSS_COMPILE}gcc > /dev/null
 

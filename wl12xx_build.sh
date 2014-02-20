@@ -591,6 +591,8 @@ function bridge ()
 		download "http://downloads.sourceforge.net/project/bridge/bridge/bridge-utils-1.5.tar.gz" "bridge-utils-1.5.tar.gz"
 		tar -xvzf bridge-utils-1.5.tar.gz
                 cd ${WORK_SPACE}/bridge-utils-1.5
+      echo "Patching bridge-utils"
+      patch -p1 < ../patches/bridge-utils-1.5-linux_3.8_fix-1.patch
 		autoconf
 		./configure --prefix=${ROOTFS} CC=${CROSS_COMPILE}gcc LD=${CROSS_COMPILE}ld RANLIB=${CROSS_COMPILE}ranlib --host=arm-linux
 		if [ $? != 0 ]
@@ -684,17 +686,17 @@ function check_env()
 ############################# MAIN ##############################################
 # First building environment should be checked
 check_env || exit 1
-if [ -z $CROSS_COMPILE ]
-then
-	#lets find some
-	tool_path=`which arm-none-linux-gnueabi-gcc`
-	if [ $? -ne 0 ]
-	then
-		echo "No tool chain is found"
-		exit 1
-	fi	
-	export CROSS_COMPILE=`dirname $tool_path`/arm-none-linux-gnueabi-
-fi
+#if [ -z $CROSS_COMPILE ]
+#then
+#	#lets find some
+#	tool_path=`which arm-none-linux-gnueabi-gcc`
+#	if [ $? -ne 0 ]
+#	then
+#		echo "No tool chain is found"
+#		exit 1
+#	fi	
+#	export CROSS_COMPILE=`dirname $tool_path`/arm-none-linux-gnueabi-
+#fi
 
 if [ -z $KLIB_BUILD ]
 then
